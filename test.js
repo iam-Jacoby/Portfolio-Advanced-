@@ -1,27 +1,94 @@
+// --------------------------------------------    App.js    ------------------------------------
+
 import Navbar from './components/Navbar';
 import React from "react";
 import { motion } from "framer-motion";
-// import ParticlesBackground from './components/ParticlesBackground'; // add this!
+import Particles from "@tsparticles/react";
+import { loadFull } from "tsparticles";
+import { useCallback } from "react";
 
-function App() {
+const Hero = () => {
+  const particlesInit = useCallback(async (engine) => {
+    // console.log(engine); // for debugging if needed
+    await loadFull(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(async (container) => {
+    // console.log(container); // optional
+  }, []);
+
+// function App() {
+  
   return (
     <div className="font-sans text-gray-900">
       <>
         <Navbar />
         <div id="home" className="pt-15"> {/* Add padding to avoid overlap */}
           {/* Hero section here */}
-          <section className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-center px-4 pt-20">
+
+          <section className="relative min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-center px-4 pt-20">
+            {/* Particles */}
+            <Particles
+              className="absolute inset-0 w-full h-full -z-10"
+              id="tsparticles"
+              init={particlesInit}
+              options={{
+                fullScreen: { enable: false },
+                background: {
+                  color: { value: "transparent" },
+                },
+                particles: {
+                  number: {
+                    value: 80,
+                    density: {
+                      enable: true,
+                      area: 800,
+                    },
+                  },
+                  color: {
+                    value: "#ffffff",
+                  },
+                  links: {
+                    enable: true,
+                    color: "#ffffff",
+                    distance: 150,
+                  },
+                  move: {
+                    enable: true,
+                    speed: 2,
+                  },
+                  size: {
+                    value: 3,
+                  },
+                },
+                interactivity: {
+                  events: {
+                    onHover: { enable: true, mode: "repulse" },
+                    onClick: { enable: true, mode: "push" },
+                  },
+                  modes: {
+                    repulse: { distance: 100 },
+                    push: { quantity: 4 },
+                  },
+                },
+              }}
+            />
+
+            {/* Your Hero Content */}
             <div>
               <h2 className="text-white text-5xl font-extrabold mb-4">Hey, I'm Jacob 👋</h2>
               <p className="text-white text-xl mb-6">Web Developer • Python | Django | React</p>
               <a
                 href="#projects"
-                className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-100 transition" 
+                className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-100 transition"
               >
                 View Projects
               </a>
             </div>
           </section>
+
+
+
         </div>
         {/* Rest of sections with ids: about, projects, contact */}
 
@@ -72,8 +139,8 @@ function App() {
         <section id="projects" className="py-20 px-6 bg-gray-100">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-10 text-blue-600">Projects</h2>
+            
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              
               {/* Project 1 */}
               <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition">
                 <h3 className="text-2xl font-semibold text-blue-600 mb-2">Job Portal</h3>
@@ -149,34 +216,31 @@ function App() {
                 </div>
               </div>
 
-              {/* More Projects Card */}
-              <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition transform hover:scale-105">
-                <div className="text-center">
-                  <h3 className="text-2xl font-semibold text-blue-600 mb-4">Want to see more?</h3>
-                  <p className="mb-4">Check out more of my projects on GitHub!</p>
-                  <a
-                    href="https://github.com/iam-Jacoby"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex justify-center items-center gap-2 text-sm text-blue-600 font-medium border-b-2 border-blue-600 hover:text-blue-700 hover:border-blue-700"
+              <div className="flex justify-center items-center flex-col text-center py-6">
+                <h3 className="text-2xl font-semibold text-blue-600 mb-4">Want to see more?</h3>
+                <p className="mb-4">Check out more of my projects on GitHub!</p>
+                <a
+                  href="https://github.com/iam-Jacoby"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-600 font-medium flex items-center gap-2"
+                >
+                  View My GitHub
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-blue-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    View My GitHub
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 text-blue-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </a>
-                </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
@@ -211,6 +275,26 @@ function App() {
 
     </div>
   );
-}
+};
 
-export default App;
+// export default App;
+export default Hero;
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------
+
+        <div id="home" className="pt-15"> {/* Add padding to avoid overlap */}
+          {/* Hero section here */}
+          <section className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-center px-4 pt-20">
+            <div>
+              <h2 className="text-white text-5xl font-extrabold mb-4">Hey, I'm Jacob 👋</h2>
+              <p className="text-white text-xl mb-6">Web Developer • Python | Django | React</p>
+              <a
+                href="#projects"
+                className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-100 transition" 
+              >
+                View Projects
+              </a>
+            </div>
+          </section>
+        </div>
