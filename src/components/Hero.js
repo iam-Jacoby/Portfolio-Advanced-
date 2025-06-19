@@ -2,19 +2,26 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-blue-100 to-white">
-      <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4 text-center">
-        Hi, I'm Jacob Abraham
-      </h1>
-      <p className="text-xl md:text-2xl text-gray-600 mb-8 text-center">
-        A Passionate Full Stack Web Developer 🚀
-      </p>
-      <a
-        href="#projects"
-        className="px-6 py-3 bg-blue-600 text-white rounded-full text-lg font-medium hover:bg-blue-700 transition duration-300"
-      >
-        View My Work
-      </a>
+    <section className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-center px-4 pt-20">
+      <div>
+        <h2 className="text-white text-5xl font-extrabold mb-4">Hey, I'm Jacob 👋</h2>
+        <p className="text-white text-xl mb-6">Web Developer • Python | Django | React</p>
+        <a
+          href="#projects"
+          className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-100 transition" 
+        >
+          View Projects
+        </a>
+
+        <a
+          href="/Jacob-Abraham-Resume.pdf"
+          download
+          className="mt-4 inline-block bg-white text-blue-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-100 transition"
+        >
+          Download Resume
+        </a>
+
+      </div>
     </section>
   );
 };
