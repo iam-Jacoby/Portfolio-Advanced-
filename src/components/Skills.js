@@ -13,19 +13,24 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="relative py-16 bg-gradient-to-r from-blue-100 to-purple-100 overflow-hidden">
+    <section
+      id="skills"
+      className="relative py-16 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-700 overflow-hidden transition-colors duration-300"
+    >
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-1/3 left-10 w-72 h-72 bg-pink-300 opacity-30 rounded-full filter blur-3xl animate-blob"></div>
         <div className="absolute top-0 right-20 w-80 h-80 bg-purple-300 opacity-30 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-10 left-32 w-72 h-72 bg-yellow-300 opacity-30 rounded-full filter blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
-      <h2 className="text-4xl font-bold text-center text-gray-800">Skills</h2>
+      <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-gray-100">
+        Skills
+      </h2>
       <div className="flex flex-wrap justify-center gap-8 mt-12 relative z-10">
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            className="bg-white p-6 rounded-2xl shadow-lg text-center"
+            className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors duration-300"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.1 }}
@@ -33,7 +38,9 @@ const Skills = () => {
             viewport={{ once: true }}
           >
             <img src={skill.src} alt={skill.name} className="mx-auto" />
-            <p className={`mt-4 text-xl font-semibold ${skill.color}`}>{skill.name}</p>
+            <p className={`mt-4 text-xl font-semibold ${skill.color} dark:${skill.color}`}>
+              {skill.name}
+            </p>
           </motion.div>
         ))}
       </div>

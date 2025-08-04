@@ -1,10 +1,6 @@
 html {
     scroll-behavior: smooth;
   }
-  
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @keyframes blob {
     0%,
@@ -31,3 +27,7 @@ html {
     animation-delay: 4s;
   }
   
+  /* if using plain CSS */
+body {
+  transition: background-color .3s, color .3s;
+}
