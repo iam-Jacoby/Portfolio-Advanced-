@@ -1,11 +1,34 @@
 import React, { useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ dark, setDark }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const toggleMenu = () => setIsOpen(!isOpen);
   const handleToggle = () => setDark(!dark);
+
+  const handleNavClick = (sectionId) => {
+    if (location.pathname === "/") {
+      // Already on home page, scroll directly
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // Navigate to home first, then scroll after short delay
+      navigate("/");
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100); // 100ms delay ensures page has rendered
+    }
+    setIsOpen(false); // close mobile menu
+  };
 
   return (
     <nav className="bg-white dark:bg-gray-800 shadow-md fixed top-0 left-0 w-full z-50 transition-colors duration-300">
@@ -18,24 +41,36 @@ const Navbar = ({ dark, setDark }) => {
         <div className="hidden md:flex items-center space-x-6">
           <ul className="flex space-x-6 text-gray-700 dark:text-gray-200 font-medium">
             <li>
-              <a href="#home" className="hover:text-blue-600 dark:hover:text-blue-400">
+              <button
+                onClick={() => handleNavClick("home")}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
                 Home
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#about" className="hover:text-blue-600 dark:hover:text-blue-400">
+              <button
+                onClick={() => handleNavClick("about")}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
                 About
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#projects" className="hover:text-blue-600 dark:hover:text-blue-400">
+              <button
+                onClick={() => handleNavClick("projects")}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
                 Projects
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#contact" className="hover:text-blue-600 dark:hover:text-blue-400">
+              <button
+                onClick={() => handleNavClick("contact")}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
                 Contact
-              </a>
+              </button>
             </li>
           </ul>
 
@@ -50,11 +85,7 @@ const Navbar = ({ dark, setDark }) => {
                 dark ? "translate-x-6" : "translate-x-0"
               }`}
             >
-              {dark ? (
-                <Sun className="w-4 h-4 text-yellow-500" />
-              ) : (
-                <Moon className="w-4 h-4 text-gray-700" />
-              )}
+              {dark ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-gray-700" />}
             </div>
           </button>
         </div>
@@ -71,11 +102,7 @@ const Navbar = ({ dark, setDark }) => {
                 dark ? "translate-x-6" : "translate-x-0"
               }`}
             >
-              {dark ? (
-                <Sun className="w-3 h-3 text-yellow-500" />
-              ) : (
-                <Moon className="w-3 h-3 text-gray-700" />
-              )}
+              {dark ? <Sun className="w-3 h-3 text-yellow-500" /> : <Moon className="w-3 h-3 text-gray-700" />}
             </div>
           </button>
 
@@ -92,26 +119,11 @@ const Navbar = ({ dark, setDark }) => {
       {/* Mobile Menu */}
       {isOpen && (
         <ul className="md:hidden px-4 pb-4 space-y-2 text-gray-700 dark:text-gray-200 font-medium bg-white dark:bg-gray-800 transition-colors">
-          <li>
-            <a href="#home" onClick={toggleMenu}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#about" onClick={toggleMenu}>
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#projects" onClick={toggleMenu}>
-              Projects
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={toggleMenu}>
-              Contact
-            </a>
-          </li>
+          {["home", "about", "projects", "contact"].map((section) => (
+            <li key={section}>
+              <button onClick={() => handleNavClick(section)}>{section.charAt(0).toUpperCase() + section.slice(1)}</button>
+            </li>
+          ))}
         </ul>
       )}
     </nav>
